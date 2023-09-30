@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Book Management System/Book Management System.iml" filepath="$PROJECT_DIR$/Book Management System/Book Management System.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Collections part-2 Queue/Collections part-2 Queue.iml" filepath="$PROJECT_DIR$/Collections part-2 Queue/Collections part-2 Queue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Comperator and Comparable/Comperator and Comparable.iml" filepath="$PROJECT_DIR$/Comperator and Comparable/Comperator and Comparable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CustomList/CustomList.iml" filepath="$PROJECT_DIR$/CustomList/CustomList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Date Classes/Date Classes examples/Date Classes examples.iml" filepath="$PROJECT_DIR$/Date Classes/Date Classes examples/Date Classes examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Date Classes/Date Time Task Nihat/Date Time Task Nihat.iml" filepath="$PROJECT_DIR$/Date Classes/Date Time Task Nihat/Date Time Task Nihat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Design Patterns java project/Design Patterns java project.iml" filepath="$PROJECT_DIR$/Design Patterns java project/Design Patterns java project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Files fileReader inputStream Serialization transient keyword/Files fileReader inputStream Serialization transient keyword.iml" filepath="$PROJECT_DIR$/Files fileReader inputStream Serialization transient keyword/Files fileReader inputStream Serialization transient keyword.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Files translate NIO/Files translate NIO.iml" filepath="$PROJECT_DIR$/Files translate NIO/Files translate NIO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Generics/Generics.iml" filepath="$PROJECT_DIR$/Generics/Generics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Maps/Maps.iml" filepath="$PROJECT_DIR$/Maps/Maps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Thread-part-2 ExecutorService/Thread-part-2 ExecutorService.iml" filepath="$PROJECT_DIR$/Thread-part-2 ExecutorService/Thread-part-2 ExecutorService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Thread-taks/Thread-taks.iml" filepath="$PROJECT_DIR$/Thread-taks/Thread-taks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-survive-app-lastVersion/my-survive-app-lastVersion.iml" filepath="$PROJECT_DIR$/my-survive-app-lastVersion/my-survive-app-lastVersion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tempHomeworkTasks.iml" filepath="$PROJECT_DIR$/.idea/tempHomeworkTasks.iml" />
+    </modules>
+  </component>
+</project>
