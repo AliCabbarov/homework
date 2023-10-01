@@ -1,5 +1,7 @@
 package strategyPattern;
 
+import java.util.Random;
+
 public class App {
     public static void main(String[] args) {
         ShoppingCart cart = new ShoppingCart();
@@ -11,5 +13,6 @@ public class App {
         // PayPal Payment
         cart.setPaymentStrategy(new PayPalPayment("example@example.com"));
         cart.checkout(50);
+        
     }
 }
