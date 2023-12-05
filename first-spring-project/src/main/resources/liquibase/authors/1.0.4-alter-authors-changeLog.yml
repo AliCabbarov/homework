@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop column birthdate
+      author: cabbarovali
+      changes:
+        - dropColumn:
+            tableName: authors
+            columns:
+              - column:
+                  name: birthdate
+                  type: date

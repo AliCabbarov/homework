@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert authors
+      author: cabbarovali
+      changes:
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: name
+                  value: varchar
+              - column:
+                  name: surname
+                  value: varchar
+              - column:
+                  name: description
+                  value: text

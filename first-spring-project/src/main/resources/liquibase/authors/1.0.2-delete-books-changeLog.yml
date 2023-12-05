@@ -1,0 +1,8 @@
+`databaseChangeLog:
+  - changeSet:
+      id: delete authors by id = 1
+      author: cabbarovali
+      changes:
+        - delete:
+            tableName: authors
+            where: id = 1

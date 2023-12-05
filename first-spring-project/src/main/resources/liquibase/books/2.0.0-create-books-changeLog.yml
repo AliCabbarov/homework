@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+    id: create books table
+    authors: cabbarovali
+    changes:
+      - createTable:
+          tableName: books
+          columns:
+            - column:
+              name: id
+              type: bigint
+              autoIncrement: true
+              constraints:
+                primaryKey: true
+            - column:
+              name: name
+              type: varchar
+              constraints:
+                nullable: false
+                updatable: false
+            - column:
+                name: genre
+                type: varchar
+                constrains:
+                  nullable: false
+            - column:
+                name: description
+                type: text
+                constraints:
+                  nullable: false
+            - column:
+                name: status
+                type: varchar
+                constraints:
+                  default: READY
+                  nullable: false
+
+
+
+
+
+

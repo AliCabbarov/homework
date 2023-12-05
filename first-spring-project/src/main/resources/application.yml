@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    include:
+      - constant
+    active: test
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+
+
+

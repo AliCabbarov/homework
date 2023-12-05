@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop table authors
+      author: cabbarovali
+      changes:
+        - dropTable:
+            tableName: authors

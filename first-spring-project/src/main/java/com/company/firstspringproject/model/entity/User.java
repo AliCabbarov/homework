@@ -1,0 +1,19 @@
+package com.company.firstspringproject.model.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class User {
+    private long id;
+    private String name;
+    private String surname;
+    private String username;
+    private String password;
+    private boolean status;
+}

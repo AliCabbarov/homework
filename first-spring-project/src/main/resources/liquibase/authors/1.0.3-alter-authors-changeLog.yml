@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: add column birthdate
+      author: cabbarovali
+      changes:
+        - addColumn:
+            tableName: authors
+            columns:
+              - column:
+                  name: birthdate
+                  type: date

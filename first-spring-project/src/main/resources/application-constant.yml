@@ -1,0 +1,36 @@
+app:
+  constant:
+    company:
+       name: Div academy for local
+       description: description for local
+       phoneNumber: 166 for local
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+app:
+  constant:
+    company:
+      name: Div academy for test
+      description: description for test
+      phoneNumber: 166 for test
+spring:
+  config:
+    activate:
+      on-profile: test
+
+---
+
+app:
+  constant:
+    company:
+      name: Div academy for prod
+      description: description for prod
+      phoneNumber: 166 for prod
+spring:
+  config:
+    activate:
+      on-profile: prod

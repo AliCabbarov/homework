@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update authors by id = 3
+      author: cabbarovali
+      changes:
+        - update:
+            tableName: authors
+            columns:
+              - column:
+                  name: name
+                  value: a
+                where: id = 3
