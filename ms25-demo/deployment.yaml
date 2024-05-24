@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ms25
+  name: ms25
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms25
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ms25
+    spec:
+      containers:
+        - image: 255992096/ms25:v2
+          name: ms25
+          resources: { }
+      imagePullSecrets:
+        - name: regcred
+status: { }
