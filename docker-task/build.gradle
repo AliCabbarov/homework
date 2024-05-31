@@ -10,6 +10,15 @@ version = '0.0.1-SNAPSHOT'
 java {
     sourceCompatibility = '17'
 }
+jar {
+    enabled = false
+}
+
+bootJar {
+    archiveBaseName.set("customer-ms")
+    archiveVersion.set("1.0.0")
+}
+
 
 repositories {
     mavenCentral()

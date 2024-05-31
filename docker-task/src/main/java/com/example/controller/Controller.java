@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
     @GetMapping()
     public String get(){
-        return "welcome the controller";
+        return "welcome from customer ms";
     }
 }
