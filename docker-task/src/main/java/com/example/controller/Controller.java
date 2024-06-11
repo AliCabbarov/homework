@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
-    @GetMapping()
+    @GetMapping("/customers")
     public String get(){
         return "welcome from customer ms";
     }
