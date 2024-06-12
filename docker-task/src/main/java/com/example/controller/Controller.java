@@ -8,5 +8,6 @@ public class Controller {
     @GetMapping("/customers")
     public String get(){
         return "welcome from customer ms";
+        //git commit test
     }
 }
