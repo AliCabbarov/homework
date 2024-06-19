@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: product-ms
+  profiles:
+    include:
+      - db
+server:
+  port: 8080
+logging:
+  level:
+    web: trace
