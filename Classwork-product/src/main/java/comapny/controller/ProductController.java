@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Map<String,Long>> productCountByCategory() {
+    public ResponseEntity<?> productCountByCategory() {
         return productService.getProductCountByCategory();
     }
 }

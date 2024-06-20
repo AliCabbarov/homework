@@ -19,7 +19,7 @@ import java.util.Map;
 public class GlobalHandler extends DefaultErrorAttributes {
 
 
-    @ExceptionHandler(Exception.class)
+//    @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handle(Exception ex,
                                                       WebRequest webRequest) {
         return of(ex, webRequest);

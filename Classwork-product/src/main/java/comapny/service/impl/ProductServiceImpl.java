@@ -4,7 +4,7 @@ import comapny.mapper.ProductMapper;
 import comapny.model.dto.request.ProductRequestDto;
 import comapny.model.dto.response.ProductResponseDto;
 import comapny.model.entity.Product;
-import comapny.model.enums.Category;
+import comapny.model.projection.ProductProjection;
 import comapny.repository.ProductRepository;
 import comapny.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<Page<ProductResponseDto>> getAll(Double firstPrice, Double secondPrice, int pageNumber, int pageSize, String sort) {
-        Sort by = Sort.by(sort);
+        Sort by = Sort.by(Sort.Order.by(sort));
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, by);
         Page<Product> products = productRepository
                 .findAllByPriceGreaterThanAndPriceIsLessThanEqual(BigDecimal.valueOf(firstPrice), BigDecimal.valueOf(secondPrice), pageRequest);
@@ -50,11 +50,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<Map<String, Long>> getProductCountByCategory() {
+
         Map<String, Long> values = new HashMap<>();
-        for (Category value : Category.values()) {
-            Long sizeByCategory = productRepository.findSizeByCategory(value);
-            values.put(value.name(), sizeByCategory);
-        }
+        List<ProductProjection> sizeByCategory = productRepository.findSizeByCategory();
+        sizeByCategory
+                .stream().filter(productProjection -> productProjection.getCategory() != null)
+                .forEach(productProjection ->
+                        values.put(productProjection.getCategory(), productProjection.getCount()));
+
         return ResponseEntity.ok(values);
     }
 }

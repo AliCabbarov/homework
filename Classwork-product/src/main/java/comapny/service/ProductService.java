@@ -10,5 +10,5 @@ public interface ProductService {
 
     ResponseEntity<?> getAll(Double firstPrice, Double secondPrice, int pageNumber, int pageSize,String sort);
 
-    ResponseEntity<Map<String,Long>> getProductCountByCategory();
+    ResponseEntity<?> getProductCountByCategory();
 }
