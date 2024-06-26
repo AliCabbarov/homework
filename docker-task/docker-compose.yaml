@@ -50,8 +50,6 @@ services:
     networks:
       - docker-task-net
 
-
-
   reverse_proxy:
     image: nginx
     hostname: proxy
