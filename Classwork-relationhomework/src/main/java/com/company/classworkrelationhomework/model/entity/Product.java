@@ -16,6 +16,7 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
+    private Integer quantity;
     @ManyToOne
     private Category category;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

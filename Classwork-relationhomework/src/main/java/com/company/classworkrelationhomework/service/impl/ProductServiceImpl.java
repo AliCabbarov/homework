@@ -5,6 +5,7 @@ import com.company.classworkrelationhomework.model.dto.request.ProductRequestDto
 import com.company.classworkrelationhomework.model.dto.response.ProductResponseDto;
 import com.company.classworkrelationhomework.model.entity.Category;
 import com.company.classworkrelationhomework.model.entity.Product;
+import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.company.classworkrelationhomework.repository.ProductRepository;
 import com.company.classworkrelationhomework.service.CategoryService;
 import com.company.classworkrelationhomework.service.ProductService;
@@ -36,5 +37,11 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepository.findAll();
         List<ProductResponseDto> productResponseDtos = productMapper.map(products);
         return ResponseEntity.ok(productResponseDtos);
+    }
+
+    @Override
+    public ResponseEntity<List<IncomeCalculation>> calculateIncome() {
+        List<IncomeCalculation> incomeCalculations = productRepository.calculateIncome();
+        return ResponseEntity.ok(incomeCalculations);
     }
 }
