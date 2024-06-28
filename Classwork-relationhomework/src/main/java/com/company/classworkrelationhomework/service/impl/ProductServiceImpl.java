@@ -44,4 +44,10 @@ public class ProductServiceImpl implements ProductService {
         List<IncomeCalculation> incomeCalculations = productRepository.calculateIncome();
         return ResponseEntity.ok(incomeCalculations);
     }
+
+    @Override
+    public Product getById(long id) {
+        return productRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("product not found -> id: " + id));
+    }
 }
