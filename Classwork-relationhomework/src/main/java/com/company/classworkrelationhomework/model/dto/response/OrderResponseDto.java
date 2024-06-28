@@ -14,13 +14,13 @@ import java.util.List;
 public class OrderResponseDto {
     private long id;
     private BigDecimal amount;
-    private List<OrderProductResponseDto> orderProducts;
     private OrderStatus orderStatus;
+    private List<OrderProductResponseDto> orderProducts;
 
-    public OrderResponseDto(long id, BigDecimal amount,OrderStatus orderStatus) {
+    public OrderResponseDto(long id, BigDecimal amount, OrderStatus orderStatus) {
         this.id = id;
         this.amount = amount;
         orderProducts = new ArrayList<>();
-        this.orderStatus =  orderStatus;
+        this.orderStatus = orderStatus;
     }
 }

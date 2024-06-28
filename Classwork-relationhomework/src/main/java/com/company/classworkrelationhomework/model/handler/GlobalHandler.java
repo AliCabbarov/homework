@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalHandler extends DefaultErrorAttributes {
-    @ExceptionHandler(RuntimeException.class)
+//    @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String,Object>> handler(RuntimeException e, WebRequest webRequest){
         Map<String, Object> errorAttributes = getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
         errorAttributes.put("error",e.getMessage());

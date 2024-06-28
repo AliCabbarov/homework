@@ -3,10 +3,12 @@ package com.company.classworkrelationhomework.service.impl;
 import com.company.classworkrelationhomework.model.dto.request.OrderRequestDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderProductResponseDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderResponseDto;
+import com.company.classworkrelationhomework.model.dto.response.ProductResponseDto;
 import com.company.classworkrelationhomework.model.entity.Order;
 import com.company.classworkrelationhomework.model.entity.OrderProduct;
 import com.company.classworkrelationhomework.model.entity.Product;
 import com.company.classworkrelationhomework.model.enums.OrderStatus;
+import com.company.classworkrelationhomework.projection.OrderProjection;
 import com.company.classworkrelationhomework.repository.OrderProductRepository;
 import com.company.classworkrelationhomework.repository.OrderRepository;
 import com.company.classworkrelationhomework.service.OrderService;
@@ -17,8 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -65,25 +66,39 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ResponseEntity<List<OrderResponseDto>> getAll() {
-        List<Order> orders = orderRepository.findAll();
+    public ResponseEntity<Collection<OrderResponseDto>> getAll() {
+        List<OrderProjection> projection = orderRepository.findProjection();
 
-        List<OrderResponseDto> responses = new ArrayList<>();
+        Map<Long, OrderResponseDto> response = new HashMap<>();
 
-        for (Order order : orders) {
-            OrderResponseDto orderResponseDto = new OrderResponseDto(order.getId(), order.getAmount(), new ArrayList<>(), order.getOrderStatus());
+        for (OrderProjection orderProjection : projection) {
+            OrderResponseDto existOrderResponseDto = response.get(orderProjection.getOrderId());
+            OrderProductResponseDto orderProduct = buildProductResponse(orderProjection);
 
-            for (OrderProduct orderProduct : orderProductRepository.findByOrder(order)) {
-                OrderProductResponseDto orderProductResponseDto = new OrderProductResponseDto(
-                        orderProduct.getId(),
-                        orderProduct.getQuantity(),
-                        orderProduct.getPrice(),
-                        orderProduct.getProduct().getName());
-                orderResponseDto.getOrderProducts().add(orderProductResponseDto);
+            if (existOrderResponseDto == null) {
+
+                OrderResponseDto orderResponseDto =
+                        new OrderResponseDto(orderProjection.getOrderId(),
+                                orderProjection.getOrderAmount(),
+                                orderProjection.getOrderStatus(),
+                                new ArrayList<>());
+                orderResponseDto.getOrderProducts().add(orderProduct);
+
+                response.put(orderProjection.getOrderId(), orderResponseDto);
+            } else {
+                existOrderResponseDto.getOrderProducts().add(orderProduct);
             }
-            responses.add(orderResponseDto);
+
         }
 
-        return ResponseEntity.ok(responses);
+        return ResponseEntity.ok(response.values());
+    }
+
+    private OrderProductResponseDto buildProductResponse(OrderProjection orderProjection) {
+        return new OrderProductResponseDto(orderProjection.getOrderProductId(),
+                orderProjection.getOrderProductQuantity(),
+                orderProjection.getOrderProductPrice(),
+                orderProjection.getProductName());
+
     }
 }
