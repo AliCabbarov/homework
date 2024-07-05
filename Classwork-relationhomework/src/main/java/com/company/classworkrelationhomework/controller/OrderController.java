@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
-    private final OrderRepository orderRepository;
 
     @PostMapping
     public ResponseEntity<OrderResponseDto> create(@RequestBody List<OrderRequestDto> dto) {
