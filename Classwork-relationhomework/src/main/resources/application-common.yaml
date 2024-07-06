@@ -1,0 +1,28 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+
+logging:
+  level:
+    web: fatal
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  level:
+    web: fatal
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+logging:
+  level:
+    web: info

@@ -30,6 +30,10 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
 
+    implementation("org.liquibase:liquibase-core:4.22.0") {
+        exclude group: 'ch.qos.logback'
+    }
+
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${mapstruct_binding_version}"
     implementation "org.mapstruct:mapstruct:${mapstruct_version}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
