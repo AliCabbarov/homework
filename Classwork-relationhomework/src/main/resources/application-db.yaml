@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    password: 123456
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:validate}
+    show-sql: true
+  liquibase:
+    change-log: db/changelog/db.changelog-${CHANGE_LOG_PROFILE:dev}.yaml
+    enabled: true
+
+
+  config:
+    activate:
+      on-profile: dev
+
+---
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB}:${DB_PORT}/postgres
+    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME}
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:validate}
+    show-sql: true
+  liquibase:
+    change-log: db/changelog/db.changelog-${CHANGE_LOG_PROFILE}.yaml
+    enabled: true
+
+
+  config:
+    activate:
+      on-profile: test
+
+---
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB}:${PORT}/postgres
+    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME}
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:validate}
+    show-sql: true
+  liquibase:
+    change-log: db/changelog/db.changelog-${CHANGE_LOG_PROFILE}.yaml
+    enabled: true
+
+
+  config:
+    activate:
+      on-profile: prod
