@@ -12,11 +12,13 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Cart {
     @Id
     @GeneratedValue
     private Long id;
     String name;
-    @ManyToMany
+    @ToString.Exclude
+    @ManyToMany()
     Set<Product> products;
 }
