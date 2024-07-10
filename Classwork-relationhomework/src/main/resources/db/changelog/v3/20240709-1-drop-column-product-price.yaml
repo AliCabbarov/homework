@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1720272590477-26
+      author: srthealik
+      changes:
+        - dropColumn:
+            columnName: price
+            tableName: product
+            columns:
+              - column:
+                  name: price

@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1720272590477-5
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_productdetail
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: color
+                  type: VARCHAR(255)
+              - column:
+                  name: image_url
+                  type: VARCHAR(255)
+            tableName: product_detail

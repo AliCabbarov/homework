@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1720272590477-4
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk__order
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: amount
+                  type: DECIMAL
+              - column:
+                  name: order_status
+                  type: VARCHAR(255)
+            tableName: _order

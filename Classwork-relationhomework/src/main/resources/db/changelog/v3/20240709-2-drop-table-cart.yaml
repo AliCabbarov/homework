@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      author: srthealik
+      id: 1720272590477-25
+      changes:
+        - dropTable:
+            cascadeConstraints: false
+            schemaName: public
+            tableName: cart

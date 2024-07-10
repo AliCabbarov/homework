@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      author: srthealik
+      id: 1720272590477-30
+      changes:
+        - renameColumn:
+            columnDataType: VARCHAR
+            newColumnName: details
+            oldColumnName: description
+            tableName: product

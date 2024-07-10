@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      author: srthealik
+      id: 1720272590477-31
+      changes:
+        - renameTable:
+            newTableName: cart_shopping
+            oldTableName: cart

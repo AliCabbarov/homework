@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1720272590477-8
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_cart_products
+                  name: cart_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_cart_products
+                  name: products_id
+                  type: BIGINT
+            tableName: cart_products

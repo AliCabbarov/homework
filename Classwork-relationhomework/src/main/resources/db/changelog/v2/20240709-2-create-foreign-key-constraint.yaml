@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1720272590477-9
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: order_id
+            baseTableName: order_product
+            constraintName: FK_ORDERPRODUCT_ON_ORDER
+            referencedColumnNames: id
+            referencedTableName: _order
+  - changeSet:
+      id: 1720272590477-10
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: order_product
+            constraintName: FK_ORDERPRODUCT_ON_PRODUCT
+            referencedColumnNames: id
+            referencedTableName: product
+  - changeSet:
+      id: 1720272590477-11
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: category_id
+            baseTableName: product
+            constraintName: FK_PRODUCT_ON_CATEGORY
+            referencedColumnNames: id
+            referencedTableName: category
+  - changeSet:
+      id: 1720272590477-12
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: product_detail_id
+            baseTableName: product
+            constraintName: FK_PRODUCT_ON_PRODUCT_DETAIL
+            referencedColumnNames: id
+            referencedTableName: product_detail
+  - changeSet:
+      id: 1720272590477-13
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: cart_id
+            baseTableName: cart_products
+            constraintName: fk_carpro_on_cart
+            referencedColumnNames: id
+            referencedTableName: cart
+  - changeSet:
+      id: 1720272590477-14
+      author: user srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: products_id
+            baseTableName: cart_products
+            constraintName: fk_carpro_on_product
+            referencedColumnNames: id
+            referencedTableName: product
+
