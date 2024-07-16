@@ -6,6 +6,7 @@ import com.company.classworkrelationhomework.model.dto.response.ProductResponseD
 import com.company.classworkrelationhomework.model.entity.Category;
 import com.company.classworkrelationhomework.model.entity.Product;
 import com.company.classworkrelationhomework.projection.IncomeCalculation;
+import com.company.classworkrelationhomework.repository.OrderRepository;
 import com.company.classworkrelationhomework.repository.ProductRepository;
 import com.company.classworkrelationhomework.service.CategoryService;
 import com.company.classworkrelationhomework.service.ProductService;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
     private final ProductMapper productMapper;
     private final CategoryService categoryService;
 
@@ -41,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<List<IncomeCalculation>> calculateIncome() {
-        List<IncomeCalculation> incomeCalculations = productRepository.calculateIncome();
+        List<IncomeCalculation> incomeCalculations = orderRepository.calculateIncome();
         return ResponseEntity.ok(incomeCalculations);
     }
 

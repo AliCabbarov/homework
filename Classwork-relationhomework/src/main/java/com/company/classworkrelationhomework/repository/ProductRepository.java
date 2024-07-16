@@ -10,6 +10,5 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("select p.quantity * p.price as income, p.name as name from Product p")
-    List<IncomeCalculation> calculateIncome();
+
 }

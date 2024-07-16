@@ -1,6 +1,7 @@
 package com.company.classworkrelationhomework.repository;
 
 import com.company.classworkrelationhomework.model.entity.Order;
+import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.company.classworkrelationhomework.projection.OrderProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +23,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             join op.product p
             order by o.id""")
     List<OrderProjection> findProjection();
+
+    @Query(value = """
+            select  sum(op.quantity * op.price) as total_income,
+                    _order.id as id
+            from _order
+                     left join order_product op on _order.id = op.order_id
+            group by  _order.id
+            """, nativeQuery = true)
+    List<IncomeCalculation> calculateIncome();
 }

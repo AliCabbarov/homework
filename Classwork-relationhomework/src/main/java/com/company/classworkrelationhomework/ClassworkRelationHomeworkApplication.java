@@ -19,9 +19,5 @@ public class ClassworkRelationHomeworkApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Product product = new Product();
-        Function<Product, String> getName = Product::getName;
-        String name = getName.apply(product);
-        System.err.println(name);
     }
 }
