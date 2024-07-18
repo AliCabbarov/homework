@@ -1,0 +1,158 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      transition: background-color 0.5s, color 0.5s;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    table thead {
+      background-color: #007BFF;
+      color: #fff;
+    }
+
+    table th, table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    table tbody tr {
+      transition: .3s;
+    }
+
+    table tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    table th {
+      position: sticky;
+      top: 0;
+    }
+
+    table th, table td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    table td {
+      color: #333;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .toggle-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .toggle-button:hover {
+      background-color: #0056b3;
+    }
+
+    .black-white {
+      background-color: #000;
+      color: #fff;
+    }
+
+    img{
+      width: 30px;
+    }
+
+  </style>
+</head>
+<body>
+
+<h1>Products</h1>
+<table>
+  <thead>
+  <tr>
+
+    <th>ID</th>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Color</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+
+<div class="button-container">
+  <button class="add-product toggle-button">Add Product</button>
+  <button class="toggle-button" onclick="toggleBackground()"><i class="fa-solid fa-moon"></i></button>
+
+</div>
+
+
+<script>
+  function toggleBackground() {
+    const icon = document.querySelector('.fa-solid')
+    console.log(icon)
+    if(!document.body.classList.contains('black-white')){
+      icon.className = "fa-solid fa-sun"
+    }else{
+
+      icon.className = "fa-solid fa-moon"
+    }
+
+    document.body.classList.toggle('black-white');
+  }
+</script>
+<script src="./app.js"></script>
+
+</body>
+</html>

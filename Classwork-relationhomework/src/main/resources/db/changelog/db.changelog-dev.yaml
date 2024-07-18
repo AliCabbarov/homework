@@ -4,4 +4,4 @@ databaseChangeLog:
   - includeAll:
       path: db/changelog/v2/
   - includeAll:
-      path: db/changelog/sql/v1/
+      path: db/changelog/sql/
