@@ -13,7 +13,6 @@ import java.util.function.Function;
 @SpringBootApplication
 @RequiredArgsConstructor
 public class ClassworkRelationHomeworkApplication implements CommandLineRunner {
-    private final ProductRepository productRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ClassworkRelationHomeworkApplication.class, args);
