@@ -29,6 +29,10 @@ public class ProductController {
     public ResponseEntity<List<ProductResponseDto>> getAll() {
         return productService.getAll();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.findById(id));
+    }
 
     @GetMapping("/income")
     public ResponseEntity<List<IncomeCalculation>> incomeCalculate() {
@@ -36,7 +40,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/specification", method = RequestMethod.GET)
-    public ResponseEntity<List<ProductResponseDto>> productBySpecification(@ModelAttribute ProductSpecificationDto dto) {
+    public ResponseEntity<List<ProductResponseDto>> productBySpecification(@ModelAttribute() ProductSpecificationDto dto) {
         return productService.productBySpecification(dto);
     }
 }

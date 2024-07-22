@@ -6,12 +6,15 @@ import com.company.classworkrelationhomework.model.dto.response.ProductResponseD
 import com.company.classworkrelationhomework.model.dto.specification.ProductSpecificationDto;
 import com.company.classworkrelationhomework.model.entity.Category;
 import com.company.classworkrelationhomework.model.entity.Product;
+import com.company.classworkrelationhomework.model.enums.ProductSort;
 import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.company.classworkrelationhomework.repository.OrderRepository;
 import com.company.classworkrelationhomework.repository.ProductRepository;
 import com.company.classworkrelationhomework.service.CategoryService;
 import com.company.classworkrelationhomework.service.ProductService;
+import com.company.classworkrelationhomework.specification.ProductSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     private final OrderRepository orderRepository;
     private final ProductMapper productMapper;
     private final CategoryService categoryService;
-    private Specification<Product> productSpecification;
+    private final ProductSpecification productSpecification;
 
     @Override
     public ResponseEntity<ProductResponseDto> create(ProductRequestDto dto) {
@@ -40,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<List<ProductResponseDto>> getAll() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findAll(Sort.by("id").ascending());
         List<ProductResponseDto> productResponseDtos = productMapper.map(products);
         return ResponseEntity.ok(productResponseDtos);
     }
@@ -58,13 +61,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public ResponseEntity<List<ProductResponseDto>> productBySpecification(ProductSpecificationDto dto) {
-        System.err.println(dto.getName());
-        productSpecification = (root, criteriaQuery, criteriaBuilder) ->
-                criteriaBuilder.like(root.get("name"), "%" + dto.getName() + "%");
+        Specification<Product> specification;
+        if (dto != null) specification = productSpecification.hasName(dto.getName())
+                    .and(productSpecification.greaterThanPrice(dto.getInitialPrice()))
+                    .and(productSpecification.lessThanPrice(dto.getSecondPrice()))
+                    .and(productSpecification
+                            .sorted(dto.getProductSort() == null ? ProductSort.ID : dto.getProductSort(),dto.getIsAsc() != null ? dto.getIsAsc() : true));
 
-        List<ProductResponseDto> response = productRepository
-                .findAll(productSpecification).stream().map(productMapper::map).toList();
+        else specification = productSpecification.sorted(ProductSort.ID,true);
+
+
+        List<ProductResponseDto> response = productRepository.findAll(specification).stream()
+                .map(productMapper::map)
+                .toList();
 
         return ResponseEntity.ok(response);
     }
+
+    @Override
+    public ProductResponseDto findById(Long id) {
+        return productMapper.map(getById(id));
+    }
+
+
 }

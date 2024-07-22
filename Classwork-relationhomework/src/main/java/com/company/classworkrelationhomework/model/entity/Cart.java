@@ -17,6 +17,6 @@ public class Cart {
     @GeneratedValue
     private Long id;
     String name;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     Set<Product> products;
 }

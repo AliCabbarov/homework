@@ -20,4 +20,5 @@ public interface ProductService {
     ResponseEntity<List<IncomeCalculation>> calculateIncome();
     Product getById(long id);
     ResponseEntity<List<ProductResponseDto>> productBySpecification(ProductSpecificationDto dto);
+    ProductResponseDto findById(Long id);
 }

@@ -1,5 +1,6 @@
 package com.company.classworkrelationhomework.model.dto.specification;
 
+import com.company.classworkrelationhomework.model.enums.ProductSort;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -17,4 +18,6 @@ public class ProductSpecificationDto {
     private BigDecimal secondPrice;
     private LocalDate initialDate;
     private LocalDate secondDate;
+    private ProductSort productSort;
+    private Boolean isAsc;
 }

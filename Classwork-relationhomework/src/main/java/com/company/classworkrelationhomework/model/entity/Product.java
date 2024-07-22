@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

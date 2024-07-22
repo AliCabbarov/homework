@@ -25,4 +25,4 @@ spring:
 
 logging:
   level:
-    web: info
+    web: warn

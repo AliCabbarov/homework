@@ -8,6 +8,7 @@ spring:
     hibernate:
       ddl-auto: ${DDL_AUTO:validate}
     show-sql: true
+    open-in-view: off
   liquibase:
     change-log: db/changelog/db.changelog-${CHANGE_LOG_PROFILE:dev}.yaml
     enabled: true
@@ -26,6 +27,7 @@ spring:
     password: ${DB_PASSWORD}
     username: ${DB_USERNAME}
   jpa:
+    open-in-view: off
     hibernate:
       ddl-auto: ${DDL_AUTO:validate}
     show-sql: true
@@ -50,6 +52,7 @@ spring:
     hibernate:
       ddl-auto: ${DDL_AUTO:validate}
     show-sql: true
+    open-in-view: off
   liquibase:
     change-log: db/changelog/db.changelog-${CHANGE_LOG_PROFILE}.yaml
     enabled: true
