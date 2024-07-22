@@ -69,7 +69,7 @@ public class RootSpecification<T> implements Specification<T> {
                 predicates.add(builder.not(root.get(criteria.getKey())).in(criteria.getValue()));
             }
         }
-        
+
 
         return builder.and(predicates.toArray(new Predicate[0]));
     }
