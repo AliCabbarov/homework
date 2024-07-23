@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 172027259043463-3
+      author: srthealik
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_country
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    unique: true
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: native_lang
+                  type: VARCHAR(255)
+              - column:
+                  name: plate_code
+                  type: INTEGER
+              - column:
+                  name: population
+                  type: BIGINT
+            tableName: country
