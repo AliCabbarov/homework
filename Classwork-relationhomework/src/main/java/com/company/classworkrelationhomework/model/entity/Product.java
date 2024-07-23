@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Getter
 @Setter
-public class Product {
+public class Product  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
