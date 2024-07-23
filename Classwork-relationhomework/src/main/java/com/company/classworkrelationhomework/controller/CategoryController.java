@@ -23,4 +23,8 @@ public class CategoryController {
     public ResponseEntity<List<CategoryResponseDto>> getAll(){
         return categoryService.getAll();
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        return categoryService.deleteById(id);
+    }
 }
