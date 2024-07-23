@@ -23,6 +23,12 @@ databaseChangeLog:
                   name: native_lang
                   type: VARCHAR(255)
               - column:
+                  name: iso2
+                  type: VARCHAR(255)
+              - column:
+                  name: iso3
+                  type: VARCHAR(255)
+              - column:
                   name: plate_code
                   type: INTEGER
               - column:
