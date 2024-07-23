@@ -44,19 +44,16 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public ResponseEntity<List<CountryResponseDto>> getAll() {
-        long count = countryRepository.count();
         List<Country> countries = countryCacheList.opsForValue().get(COUNTRY_CACHE_LIST);
 
-        if (countries != null && countries.size() == count) {
-            List<CountryResponseDto> responseFromRedis = countries.stream().map(countryMapper::map).toList();
-            return ResponseEntity.ok(responseFromRedis);
+        if (countries == null) {
+            setUp();
+
         }
 
-        setUp();
-        List<CountryResponseDto> response = countryRepository.findAll().stream()
-                .map(countryMapper::map)
-                .toList();
+        List<CountryResponseDto> responseFromRedis = countries.stream().map(countryMapper::map).toList();
 
-        return ResponseEntity.ok(response);
+
+        return ResponseEntity.ok(responseFromRedis);
     }
 }
