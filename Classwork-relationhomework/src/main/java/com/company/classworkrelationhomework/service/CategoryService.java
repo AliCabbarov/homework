@@ -13,4 +13,5 @@ public interface CategoryService {
     Category getCategoryById(long id);
 
     ResponseEntity<List<CategoryResponseDto>> getAll();
+    ResponseEntity<Void> deleteById(Long id);
 }
