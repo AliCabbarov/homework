@@ -22,4 +22,12 @@ public class CountryController {
     public ResponseEntity<List<CountryResponseDto>> getAll(){
         return countryService.getAll();
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> getAll(@PathVariable Long id){
+        return countryService.delete(id);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<CountryResponseDto> findById(@PathVariable Long id){
+        return countryService.findById(id);
+    }
 }
