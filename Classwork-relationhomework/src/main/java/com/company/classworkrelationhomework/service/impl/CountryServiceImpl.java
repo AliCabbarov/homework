@@ -8,6 +8,8 @@ import com.company.classworkrelationhomework.repository.CountryRepository;
 import com.company.classworkrelationhomework.service.CountryService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -23,11 +25,12 @@ public class CountryServiceImpl implements CountryService {
     private final CountryRepository countryRepository;
     private final RedisTemplate<String, Country> countryCache;
     private final RedisTemplate<String, List<Country>> countryCacheList;
+
     private final String COUNTRY_CACHE_LIST = "countryCacheList";
 
     @PostConstruct
-    public void setUp() {
-        List<Country> countries = countryRepository.findAll();
+    public void setUp() {;
+        List<Country> countries = countryRepository.findAll(Sort.by("id"));
         countries.forEach(country ->
                 countryCache.opsForValue().set(COUNTRY_CACHE_LIST + country.getId(), country));
         countryCacheList.opsForValue().set(COUNTRY_CACHE_LIST, countries);
@@ -73,17 +76,17 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public ResponseEntity<CountryResponseDto> findById(Long id) {
 
-            if (countryCache.opsForValue().get(COUNTRY_CACHE_LIST + id) == null) {
-                setUp();
-            }
+        if (countryCache.opsForValue().get(COUNTRY_CACHE_LIST + id) == null) {
+            setUp();
+        }
 
-            Country country = countryCache.opsForValue().get(COUNTRY_CACHE_LIST + id);
+        Country country = countryCache.opsForValue().get(COUNTRY_CACHE_LIST + id);
 
-            if (country == null){
-                throw new RuntimeException("Country not found the given id => " + id);
-            }
+        if (country == null) {
+            throw new RuntimeException("Country not found the given id => " + id);
+        }
 
-            return ResponseEntity.ok(countryMapper.map(country));
+        return ResponseEntity.ok(countryMapper.map(country));
     }
 
     private Country getById(Long id) {
@@ -91,7 +94,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     private void resetCacheList(Country country) {
-        countryCache.opsForValue().set(COUNTRY_CACHE_LIST + country.getId(), country);
+        countryCache.opsForValue().getAndDelete(COUNTRY_CACHE_LIST + country.getId());
         countryCacheList.opsForValue().set(COUNTRY_CACHE_LIST, new ArrayList<>(0));
     }
 }
