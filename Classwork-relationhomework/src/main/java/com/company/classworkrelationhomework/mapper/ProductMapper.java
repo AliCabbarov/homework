@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+@SuppressWarnings("all")
 public interface ProductMapper {
     @Mapping(target = "category", ignore = true)
     Product map(ProductRequestDto dto);
