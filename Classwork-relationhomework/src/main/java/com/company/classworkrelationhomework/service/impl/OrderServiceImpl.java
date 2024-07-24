@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
