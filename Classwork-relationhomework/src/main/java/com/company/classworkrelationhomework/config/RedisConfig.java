@@ -18,8 +18,8 @@ import java.util.List;
 public class RedisConfig {
 
     @Bean
-    public RedisTemplate<Long, Country> country() {
-        RedisTemplate<Long, Country> template = new RedisTemplate<>();
+    public RedisTemplate<String, Country> country() {
+        RedisTemplate<String, Country> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory());
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer("UTF-8"));
         template.afterPropertiesSet();
