@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ import java.util.List;
 public class CountryServiceImpl implements CountryService {
     private final CountryMapper countryMapper;
     private final CountryRepository countryRepository;
-    private final RedisTemplate<Long, Country> countryCache;
+    private final RedisTemplate<String, Country> countryCache;
     private final RedisTemplate<String, List<Country>> countryCacheList;
     private final String COUNTRY_CACHE_LIST = "countryCacheList";
 
@@ -27,8 +28,7 @@ public class CountryServiceImpl implements CountryService {
     public void setUp() {
         List<Country> countries = countryRepository.findAll();
         countries.forEach(country ->
-                countryCache.opsForValue().set(country.getId(), country));
-
+                countryCache.opsForValue().set(COUNTRY_CACHE_LIST + country.getId(), country));
         countryCacheList.opsForValue().set(COUNTRY_CACHE_LIST, countries);
     }
 
@@ -36,8 +36,7 @@ public class CountryServiceImpl implements CountryService {
     public ResponseEntity<Void> create(CountryRequestDto dto) {
         Country country = countryMapper.map(dto);
         Country saved = countryRepository.save(country);
-
-        countryCache.opsForValue().set(saved.getId(), saved);
+        resetCacheList(saved);
 
         return ResponseEntity.ok().build();
     }
@@ -46,14 +45,52 @@ public class CountryServiceImpl implements CountryService {
     public ResponseEntity<List<CountryResponseDto>> getAll() {
         List<Country> countries = countryCacheList.opsForValue().get(COUNTRY_CACHE_LIST);
 
-        if (countries == null) {
-            setUp();
-
+        if (countries == null || countries.isEmpty()) {
+            countries = countryRepository.findAll();
+            countryCacheList.opsForValue().set(COUNTRY_CACHE_LIST, countries);
         }
 
         List<CountryResponseDto> responseFromRedis = countries.stream().map(countryMapper::map).toList();
 
-
         return ResponseEntity.ok(responseFromRedis);
+    }
+
+    @Override
+    public ResponseEntity<Void> delete(Long id) {
+        try {
+            Country country = getById(id);
+            countryRepository.deleteById(id);
+
+            resetCacheList(country);
+
+        } catch (RuntimeException e) {
+            ResponseEntity.ok().build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<CountryResponseDto> findById(Long id) {
+
+            if (countryCache.opsForValue().get(COUNTRY_CACHE_LIST + id) == null) {
+                setUp();
+            }
+
+            Country country = countryCache.opsForValue().get(COUNTRY_CACHE_LIST + id);
+
+            if (country == null){
+                throw new RuntimeException("Country not found the given id => " + id);
+            }
+
+            return ResponseEntity.ok(countryMapper.map(country));
+    }
+
+    private Country getById(Long id) {
+        return countryRepository.findById(id).orElseThrow();
+    }
+
+    private void resetCacheList(Country country) {
+        countryCache.opsForValue().set(COUNTRY_CACHE_LIST + country.getId(), country);
+        countryCacheList.opsForValue().set(COUNTRY_CACHE_LIST, new ArrayList<>(0));
     }
 }
