@@ -10,4 +10,8 @@ public interface CountryService {
     ResponseEntity<Void> create(CountryRequestDto dto);
 
     ResponseEntity<List<CountryResponseDto>> getAll();
+
+    ResponseEntity<Void> delete(Long id);
+
+    ResponseEntity<CountryResponseDto> findById(Long id);
 }
