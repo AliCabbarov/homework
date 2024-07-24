@@ -6,8 +6,8 @@ import com.company.classworkrelationhomework.model.entity.Country;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
+@SuppressWarnings("all")
 public interface CountryMapper {
     Country map(CountryRequestDto dto);
     CountryResponseDto map(Country country);
-
 }
