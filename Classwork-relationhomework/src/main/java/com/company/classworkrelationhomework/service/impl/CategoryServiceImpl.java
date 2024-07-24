@@ -9,13 +9,14 @@ import com.company.classworkrelationhomework.service.CategoryService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
