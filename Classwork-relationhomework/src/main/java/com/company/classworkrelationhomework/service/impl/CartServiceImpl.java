@@ -10,11 +10,12 @@ import com.company.classworkrelationhomework.service.CartService;
 import com.company.classworkrelationhomework.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
