@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+@SuppressWarnings("all")
 public interface CategoryMapper {
 
     Category map(CategoryRequestDto dto);
