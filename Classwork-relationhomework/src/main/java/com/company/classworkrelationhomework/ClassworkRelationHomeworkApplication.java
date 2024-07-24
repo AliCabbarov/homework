@@ -22,8 +22,6 @@ import java.util.function.Function;
 @EnableCaching
 @EnableFeignClients
 public class ClassworkRelationHomeworkApplication implements CommandLineRunner {
-    private final CountriesClient client;
-    private final CountryRepository countryRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ClassworkRelationHomeworkApplication.class, args);
