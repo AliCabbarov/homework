@@ -35,13 +35,18 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'// Versiyon numarasını güncelle
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
 
     implementation("org.liquibase:liquibase-core:4.22.0") {
         exclude group: 'ch.qos.logback'
     }
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:3.11.2'
 
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${mapstruct_binding_version}"
     implementation "org.mapstruct:mapstruct:${mapstruct_version}"
