@@ -4,15 +4,17 @@ import com.company.classworkrelationhomework.model.dto.request.CategoryRequestDt
 import com.company.classworkrelationhomework.model.dto.response.CategoryResponseDto;
 import com.company.classworkrelationhomework.model.entity.Category;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-@SuppressWarnings("all")
 public interface CategoryMapper {
-
+    @Mapping(target = "id",ignore = true)
     Category map(CategoryRequestDto dto);
+
     CategoryResponseDto map(Category category);
+
     List<CategoryResponseDto> map(List<Category> categories);
 
 }
