@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-@SuppressWarnings("all")
 public class ProductSpecification {
 
     public Specification<Product> hasName(String name) {
@@ -24,7 +23,7 @@ public class ProductSpecification {
     public Specification<Product> none() {
         return ((root, query, criteriaBuilder) -> criteriaBuilder.conjunction());
     }
-    public Specification<Product> sorted(@NotNull ProductSort sort, Boolean isAsc) {
+    public Specification<Product> sorted(ProductSort sort, Boolean isAsc) {
         return (root, query, criteriaBuilder) -> {
             if (isAsc) query.orderBy(criteriaBuilder.asc(root.get(sort.getParam())));
             else query.orderBy(criteriaBuilder.desc(root.get(sort.getParam())));
