@@ -9,9 +9,10 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-@SuppressWarnings("all")
 public interface ProductMapper {
     @Mapping(target = "category", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "productDetail.id", ignore = true)
     Product map(ProductRequestDto dto);
 
     ProductResponseDto map(Product product);
