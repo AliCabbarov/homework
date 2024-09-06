@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-public class CartResponseDto {
+public class CartResponseDto implements Serializable {
     private Long id;
     private String name;
     private List<ProductResponseDto> products;
