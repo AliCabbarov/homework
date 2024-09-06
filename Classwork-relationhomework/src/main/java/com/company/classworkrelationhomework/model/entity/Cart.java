@@ -3,6 +3,7 @@ package com.company.classworkrelationhomework.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Cart {
+@Data
+public class Cart implements Serializable {
+    private static final Long serialVersionUID = 123158894L;
     @Id
     @GeneratedValue
     private Long id;
