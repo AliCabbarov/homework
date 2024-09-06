@@ -13,7 +13,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
 public class Cart implements Serializable {
     private static final Long serialVersionUID = 123158894L;
     @Id
