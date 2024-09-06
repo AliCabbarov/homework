@@ -1,9 +1,8 @@
 package com.company.classworkrelationhomework.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
@@ -12,7 +11,12 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-public class Product  {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class Product  implements Serializable{
+    private static final Long serialVersionUID = 1231588946L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,8 +24,9 @@ public class Product  {
     private String description;
     private BigDecimal price;
     private Integer quantity;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE},fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE},fetch = FetchType.EAGER)
     private ProductDetail productDetail;
 }
