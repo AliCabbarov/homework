@@ -30,9 +30,9 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.1' // Versiyon numarasını güncelle
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.1'
     implementation 'redis.clients:jedis:4.2.3'
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'// Versiyon numarasını güncelle
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
@@ -48,9 +48,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.11.2'
 
-    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${mapstruct_binding_version}"
-    implementation "org.mapstruct:mapstruct:${mapstruct_version}"
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+    implementation "org.mapstruct:mapstruct:1.4.2.Final"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
 }
 
 dependencyManagement {
