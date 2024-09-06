@@ -26,7 +26,7 @@ public class CountryServiceImpl implements CountryService {
 
     private final String COUNTRY_CACHE_LIST = "countryCacheList";
 
-    @PostConstruct
+//    @PostConstruct
     public void setUp() {;
         List<Country> countries = countryRepository.findAll(Sort.by("id"));
         countries.forEach(country ->
