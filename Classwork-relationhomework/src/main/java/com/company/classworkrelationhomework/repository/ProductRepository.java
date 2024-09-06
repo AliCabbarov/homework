@@ -27,6 +27,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
     @EntityGraph(attributePaths = {"productDetail","category"})
     List<Product> findAll(Sort sort);
 
+
     @Override
     @Query(value = """
             select p from Product  p
