@@ -13,8 +13,6 @@ import java.io.Serializable;
 @Setter
 @Builder
 @NoArgsConstructor
-@ToString
-@Data
 @AllArgsConstructor
 public class ProductDetail implements Serializable {
     @Id
