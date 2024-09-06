@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Product  implements Serializable{
     private static final Long serialVersionUID = 1231588946L;
     @Id
