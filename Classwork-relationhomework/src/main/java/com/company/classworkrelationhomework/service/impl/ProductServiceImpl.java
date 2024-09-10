@@ -16,8 +16,12 @@ import com.company.classworkrelationhomework.service.ProductService;
 import com.company.classworkrelationhomework.specification.ProductSpecification;
 import com.company.classworkrelationhomework.specification.RootSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -36,12 +40,13 @@ public class ProductServiceImpl implements ProductService {
     private final RootSpecification<Product> rootSpecification;
 
     @Override
-    public ResponseEntity<ProductResponseDto> create(ProductRequestDto dto) {
+    @CachePut(cacheNames = "products",key = "#result.id")
+    public ProductResponseDto create(ProductRequestDto dto) {
         Product product = productMapper.map(dto);
         Category category = categoryService.getCategoryById(dto.getCategoryId());
         product.setCategory(category);
         Product saved = productRepository.save(product);
-        return ResponseEntity.ok(productMapper.map(saved));
+        return productMapper.map(saved);
     }
 
     @Override
@@ -82,8 +87,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(cacheNames = "products",key = "#id")
     public ProductResponseDto findById(Long id) {
         return productMapper.map(getById(id));
+    }
+
+    @Override
+    @CacheEvict(cacheNames = "products",key = "#id")
+    public ProductResponseDto delete(Long id) {
+        Product product = getById(id);
+        productRepository.delete(product);
+        return productMapper.map(product);
     }
 
     @Override

@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -27,7 +26,6 @@ public class CartServiceImpl implements CartService {
     private final ProductService productService;
     private final CartMapper cartMapper;
     private final RedisTemplate<Long, CartResponseDto> redisTemplate;
-    private final ProductMapper productMapper;
 
     @Override
     public ResponseEntity<CartResponseDto> create(CartRequestDto dto) {
@@ -88,7 +86,7 @@ public class CartServiceImpl implements CartService {
         return ResponseEntity.ok().build();
     }
 
-    private Cart getCart(Long id) {
+    protected Cart getCart(Long id) {
         return cartRepository.findById(id).orElseThrow(() -> new RuntimeException("cart not found -> id: " + id));
     }
 }

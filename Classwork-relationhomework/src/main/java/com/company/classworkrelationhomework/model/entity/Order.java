@@ -3,6 +3,8 @@ package com.company.classworkrelationhomework.model.entity;
 import com.company.classworkrelationhomework.model.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.math.BigDecimal;
 
@@ -12,6 +14,8 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

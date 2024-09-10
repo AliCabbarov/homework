@@ -4,3 +4,8 @@ spring:
       - db
       - common
     active: ${ACTIVE-PROFILE:dev}
+logging:
+  level:
+    web: debug
+
+

@@ -20,7 +20,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDto> create(@RequestBody ProductRequestDto dto) {
-        return productService.create(dto);
+        return ResponseEntity.ok(productService.create(dto));
     }
 
     @GetMapping
@@ -44,5 +44,10 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<List<ProductResponseDto>> criteriaSearch(@RequestBody List<SearchCriteria> criteria){
         return productService.searchByCriteria(criteria);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> criteriaSearch(@PathVariable Long id){
+        productService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

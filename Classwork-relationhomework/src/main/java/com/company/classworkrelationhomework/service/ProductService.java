@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ProductService {
-    ResponseEntity<ProductResponseDto> create(ProductRequestDto dto);
+    ProductResponseDto create(ProductRequestDto dto);
 
     ResponseEntity<List<ProductResponseDto>> getAll();
 
@@ -20,4 +20,5 @@ public interface ProductService {
     ResponseEntity<List<ProductResponseDto>> productBySpecification(ProductSpecificationDto dto);
     ResponseEntity<List<ProductResponseDto>> searchByCriteria(List<SearchCriteria> dto);
     ProductResponseDto findById(Long id);
+    ProductResponseDto delete(Long id);
 }

@@ -1,6 +1,7 @@
 package com.company.classworkrelationhomework.config;
 
 import com.company.classworkrelationhomework.model.dto.response.CartResponseDto;
+import com.company.classworkrelationhomework.model.entity.Cart;
 import com.company.classworkrelationhomework.model.entity.Country;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.time.Duration;
 import java.util.List;
@@ -51,6 +53,16 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
+
+    @Bean
+    public RedisTemplate<Long, Cart> cartRedisTemplate() {
+        RedisTemplate<Long, Cart> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        template.setValueSerializer(RedisSerializer.java());
+        template.setKeySerializer(RedisSerializer.java());
+        template.afterPropertiesSet();
+        return template;
+    }
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
@@ -64,7 +76,7 @@ public class RedisConfig {
 
         return RedisCacheManager.builder(redisConnectionFactory)
                 .cacheDefaults(cacheConfiguration)
-                .withCacheConfiguration("cart", productCacheConfig)
+                .withCacheConfiguration("product",productCacheConfig)
                 .build();
     }
 
