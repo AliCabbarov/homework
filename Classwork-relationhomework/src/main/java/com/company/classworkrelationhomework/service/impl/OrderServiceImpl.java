@@ -2,6 +2,7 @@ package com.company.classworkrelationhomework.service.impl;
 
 import com.company.classworkrelationhomework.model.dto.request.OrderRequestDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderProductResponseDto;
+import com.company.classworkrelationhomework.model.dto.response.OrderReadResponseDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderResponseDto;
 import com.company.classworkrelationhomework.model.entity.Order;
 import com.company.classworkrelationhomework.model.entity.OrderProduct;
@@ -13,6 +14,7 @@ import com.company.classworkrelationhomework.repository.OrderRepository;
 import com.company.classworkrelationhomework.service.OrderService;
 import com.company.classworkrelationhomework.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,6 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
     private final ProductService productService;
@@ -94,6 +95,18 @@ public class OrderServiceImpl implements OrderService {
         return ResponseEntity.ok(response.values());
     }
 
+    @Override
+    public ResponseEntity<OrderReadResponseDto> getById(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        OrderReadResponseDto responseDto = OrderReadResponseDto.builder()
+                .orderStatus(order.getOrderStatus())
+                .amount(order.getAmount())
+                .id(order.getId())
+                .build();
+
+        return ResponseEntity.ok(responseDto);
+    }
+
     private OrderProductResponseDto buildProductResponse(OrderProjection orderProjection) {
         return new OrderProductResponseDto(orderProjection.getOrderProductId(),
                 orderProjection.getOrderProductQuantity(),
@@ -101,4 +114,5 @@ public class OrderServiceImpl implements OrderService {
                 orderProjection.getProductName());
 
     }
+
 }

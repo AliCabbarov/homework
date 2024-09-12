@@ -3,6 +3,7 @@ package com.company.classworkrelationhomework.repository;
 import com.company.classworkrelationhomework.model.entity.Order;
 import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.company.classworkrelationhomework.projection.OrderProjection;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -32,4 +33,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             group by  _order.id
             """, nativeQuery = true)
     List<IncomeCalculation> calculateIncome();
+
+    @CachePut(value = "orderCache", key = "#entity.id")
+    Order save(Order entity);
 }

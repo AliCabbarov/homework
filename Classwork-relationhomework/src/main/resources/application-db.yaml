@@ -9,6 +9,16 @@ spring:
       ddl-auto: ${DDL_AUTO:validate}
     show-sql: true
     open-in-view: off
+    properties:
+      hibernate:
+        cache:
+          use_query_cache: true
+          use_second_level_cache: true
+          region:
+            factory_class: org.redisson.hibernate.RedissonRegionFactory
+
+
+
   liquibase:
     change-log: db/changelog/db.changelog-${CHANGE_LOG_PROFILE:dev}.yaml
     enabled: true

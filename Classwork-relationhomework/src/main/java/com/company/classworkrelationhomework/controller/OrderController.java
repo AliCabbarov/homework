@@ -1,6 +1,7 @@
 package com.company.classworkrelationhomework.controller;
 
 import com.company.classworkrelationhomework.model.dto.request.OrderRequestDto;
+import com.company.classworkrelationhomework.model.dto.response.OrderReadResponseDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderResponseDto;
 import com.company.classworkrelationhomework.projection.OrderProjection;
 import com.company.classworkrelationhomework.repository.OrderRepository;
@@ -26,5 +27,9 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<Collection<OrderResponseDto>> getAll() {
         return orderService.getAll();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderReadResponseDto> getById(@PathVariable Long id) {
+        return orderService.getById(id);
     }
 }
