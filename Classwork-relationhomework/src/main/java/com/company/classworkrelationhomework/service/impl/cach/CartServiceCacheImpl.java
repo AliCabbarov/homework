@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
-@Primary
+
 @Service
 @Slf4j
 public class CartServiceCacheImpl extends CartServiceImpl {

@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1720272590476-26
+      author: srthealik
+      changes:
+        - addColumn:
+            tableName: cart
+            columns:
+              - column:
+                  name: status
+                  type: BOOLEAN

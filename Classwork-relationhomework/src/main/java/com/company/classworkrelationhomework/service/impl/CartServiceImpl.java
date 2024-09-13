@@ -10,6 +10,7 @@ import com.company.classworkrelationhomework.repository.CartRepository;
 import com.company.classworkrelationhomework.service.CartService;
 import com.company.classworkrelationhomework.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
+@Primary
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;

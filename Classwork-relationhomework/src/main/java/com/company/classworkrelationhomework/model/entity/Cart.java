@@ -2,7 +2,9 @@ package com.company.classworkrelationhomework.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnTransformer;
+import org.hibernate.annotations.*;
+import org.hibernate.dialect.Dialect;
+import org.hibernate.dialect.PostgreSQLDialect;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -15,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Where(clause = "status = true")
 public class Cart implements Serializable {
     private static final Long serialVersionUID = 123158894L;
     @Id
@@ -28,5 +31,7 @@ public class Cart implements Serializable {
     String name;
     @ManyToMany(fetch = FetchType.EAGER)
     Set<Product> products;
+    @Builder.Default
+    boolean status = true;
 
 }
