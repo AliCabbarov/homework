@@ -88,7 +88,7 @@ public class CartServiceImpl implements CartService {
         return ResponseEntity.ok().build();
     }
 
-    protected Cart getCart(Long id) {
+    public Cart getCart(Long id) {
         return cartRepository.findById(id).orElseThrow(() -> new RuntimeException("cart not found -> id: " + id));
     }
 }

@@ -4,6 +4,7 @@ import com.company.classworkrelationhomework.mapper.CartMapper;
 import com.company.classworkrelationhomework.model.dto.request.CartRequestDto;
 import com.company.classworkrelationhomework.model.dto.response.CartResponseDto;
 import com.company.classworkrelationhomework.model.entity.Cart;
+import com.company.classworkrelationhomework.model.entity.Product;
 import com.company.classworkrelationhomework.repository.CartRepository;
 import com.company.classworkrelationhomework.service.impl.CartServiceImpl;
 import com.company.classworkrelationhomework.service.impl.ProductServiceImpl;
@@ -12,9 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+
+import java.util.HashSet;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -23,6 +28,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class CartServiceTest {
     @InjectMocks
+    @Spy
     CartServiceImpl cartService;
     @Mock
     CartRepository cartRepository;
@@ -61,6 +67,31 @@ public class CartServiceTest {
         verify(cartMapper, times(1)).map(any(Cart.class));
         verify(redisTemplate.opsForValue(), times(1)).set(savedcart.getId(), cartResponseDto);
 
+
+    }
+
+    @Test
+    public void addProductTest(){
+        Long id = 5L;
+        Long productId = 5L;
+
+        Cart getCart = new Cart(id,"cart of name",new HashSet<>(),true);
+        CartResponseDto cartResponseDto = new CartResponseDto(1L, "name of the cart");
+        ValueOperations valueOperations = mock(ValueOperations.class);
+        Product product = new Product();
+
+
+
+        when(productService.getById(productId)).thenReturn(product);
+        doReturn(getCart).when(cartService).getCart(id);
+        when(cartRepository.save(any(Cart.class))).thenReturn(getCart);
+        when(cartMapper.map(any(Cart.class))).thenReturn(cartResponseDto);
+        when(redisTemplate.opsForValue()).thenReturn(valueOperations);
+
+
+        CartResponseDto responseDto = cartService.addProduct(id, productId).getBody();
+
+        assertThat(responseDto).isEqualTo(cartResponseDto);
 
     }
 }
