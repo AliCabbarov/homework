@@ -10,10 +10,7 @@ import com.company.classworkrelationhomework.service.impl.CartServiceImpl;
 import com.company.classworkrelationhomework.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -92,6 +89,68 @@ public class CartServiceTest {
         CartResponseDto responseDto = cartService.addProduct(id, productId).getBody();
 
         assertThat(responseDto).isEqualTo(cartResponseDto);
+
+    }
+
+    @Test
+    public  void delete(){
+        Long id = 5L;
+
+        Cart getCart = new Cart(id,"cart of name",new HashSet<>(),true);
+
+
+        doReturn(getCart).when(cartService).getCart(id);
+        doNothing().when(cartRepository).delete(getCart);
+        doReturn(true).when(redisTemplate).delete(id);
+
+        cartService.deleteCart(id).getBody();
+
+        verify(cartRepository,times(1)).delete(getCart);
+
+
+    }
+
+    @Test
+    public void getIfRedisNull(){
+        Long id = 5L;
+
+        CartResponseDto cartResponseDto = null;
+        Cart getCart = new Cart(id,"cart of name",new HashSet<>(),true);
+        CartResponseDto cartResponseDtoIsNotNull = new CartResponseDto(1L, "name of the cart");
+        ValueOperations<Long, CartResponseDto> valueOperations = mock(ValueOperations.class);
+
+
+        when(redisTemplate.opsForValue()).thenReturn(valueOperations);
+        when(valueOperations.get(id)).thenReturn(cartResponseDto);
+        doReturn(getCart).when(cartService).getCart(id);
+        when(cartMapper.map(any(Cart.class))).thenReturn(cartResponseDtoIsNotNull);
+
+
+        CartResponseDto responseDto = cartService.get(id).getBody();
+
+
+        assertThat(responseDto).isEqualTo(cartResponseDtoIsNotNull);
+        verify(cartService,times(1)).getCart(any());
+        verify(redisTemplate.opsForValue(), times(1)).get(id);
+        verify(redisTemplate.opsForValue(), times(1)).set(id, cartResponseDtoIsNotNull);
+
+
+    }
+    @Test
+    public void getIfRedisIsNotNull(){
+        Long id = 5L;
+
+        CartResponseDto cartResponseDtoIsNotNull = new CartResponseDto(1L, "name of the cart");
+        ValueOperations<Long, CartResponseDto> valueOperations = mock(ValueOperations.class);
+
+
+        when(redisTemplate.opsForValue()).thenReturn(valueOperations);
+        when(valueOperations.get(id)).thenReturn(cartResponseDtoIsNotNull);
+
+        CartResponseDto responseDto = cartService.get(id).getBody();
+
+        assertThat(responseDto).isEqualTo(cartResponseDtoIsNotNull);
+
 
     }
 }
