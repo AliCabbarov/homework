@@ -16,6 +16,9 @@ java {
         languageVersion = JavaLanguageVersion.of(17)
     }
 }
+test {
+    useJUnitPlatform() // Required for JUnit 5 (Jupiter)
+}
 
 configurations {
     compileOnly {
@@ -42,20 +45,19 @@ dependencies {
         exclude group: 'ch.qos.logback'
     }
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:3.11.2'
-
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
     implementation "org.mapstruct:mapstruct:1.4.2.Final"
     annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
 
     implementation 'org.redisson:redisson-hibernate-53:3.20.0'
-
-
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation "junit:junit:$junitVersion"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion")
+
 
 
 }
