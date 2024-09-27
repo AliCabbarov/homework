@@ -19,7 +19,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private UserService userService; // Mock the service layer
+    private UserService userService;
 
     @Autowired
     private ObjectMapper objectMapper;
