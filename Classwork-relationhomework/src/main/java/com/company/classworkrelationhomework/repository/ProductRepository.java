@@ -35,4 +35,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             left join fetch p.productDetail where p.id =:id
             """)
     Optional<Product> findById(@Param("id")Long id);
+
 }

@@ -6,7 +6,7 @@ spring:
     username: postgres
   jpa:
     hibernate:
-      ddl-auto: ${DDL_AUTO:validate}
+      ddl-auto: ${DDL_AUTO:update}
     show-sql: true
     open-in-view: off
     properties:
