@@ -8,6 +8,8 @@ import com.company.classworkrelationhomework.model.dto.specification.product.Pro
 import com.company.classworkrelationhomework.model.entity.Category;
 import com.company.classworkrelationhomework.model.entity.Product;
 import com.company.classworkrelationhomework.model.enums.ProductSort;
+import com.company.classworkrelationhomework.model.handler.ApplicationException;
+import com.company.classworkrelationhomework.model.handler.NotFoundException;
 import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.company.classworkrelationhomework.repository.OrderRepository;
 import com.company.classworkrelationhomework.repository.ProductRepository;
@@ -15,6 +17,7 @@ import com.company.classworkrelationhomework.service.CategoryService;
 import com.company.classworkrelationhomework.service.ProductService;
 import com.company.classworkrelationhomework.specification.ProductSpecification;
 import com.company.classworkrelationhomework.specification.RootSpecification;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -40,13 +43,20 @@ public class ProductServiceImpl implements ProductService {
     private final RootSpecification<Product> rootSpecification;
 
     @Override
-    @CachePut(cacheNames = "products",key = "#result.id")
+    @CachePut(cacheNames = "products", key = "#result.id")
     public ProductResponseDto create(ProductRequestDto dto) {
+        alreadyExistExceptionByName(dto.getName());
         Product product = productMapper.map(dto);
         Category category = categoryService.getCategoryById(dto.getCategoryId());
         product.setCategory(category);
         Product saved = productRepository.save(product);
         return productMapper.map(saved);
+    }
+    private void alreadyExistExceptionByName(@NonNull String name){
+        boolean existsByName = productRepository.existsByName(name);
+        if (existsByName){
+            throw new ApplicationException("product already exist exception with given name: " + name);
+        }
     }
 
     @Override
@@ -65,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getById(long id) {
         return productRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("product not found -> id: " + id));
+                new NotFoundException("product not found", id));
     }
 
     public ResponseEntity<List<ProductResponseDto>> productBySpecification(ProductSpecificationDto dto) {
@@ -87,13 +97,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Cacheable(cacheNames = "products",key = "#id")
+    @Cacheable(cacheNames = "products", key = "#id")
     public ProductResponseDto findById(Long id) {
         return productMapper.map(getById(id));
     }
 
     @Override
-    @CacheEvict(cacheNames = "products",key = "#id")
+    @CacheEvict(cacheNames = "products", key = "#id")
     public ProductResponseDto delete(Long id) {
         Product product = getById(id);
         productRepository.delete(product);

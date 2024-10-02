@@ -18,8 +18,13 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
+    @Transactional
     public UserResponseDto getById(Long id) {
-        return userMapper.map(userRepository.findById(id).orElseThrow());
+        User user = userRepository.findByName("Ali").get();
+        System.err.println(user.getName());
+        User user1 = userRepository.findById(id).get();
+        System.err.println(user1.getName());
+        return userMapper.map(user1);
     }
 
     @Override

@@ -11,12 +11,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
@@ -54,6 +51,19 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.name").value(userRequestDto.name()));
     }
 
+    @Test
+    void shouldUpdateUser() throws Exception{
+        UserRequestDto userRequestDto = new UserRequestDto("Ali","Jabbarov","jabbaroffali","123456");
+        UserResponseDto userResponseDto = new UserResponseDto(1L,"Ali","Jabbarov","jabbaroffali");
+        Long id = 1L;
 
+        when(userService.update(userRequestDto,id)).thenReturn(userResponseDto);
 
+        mockMvc.perform(put("/users/{id}",id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(userRequestDto)))
+                .andExpect(jsonPath("$.name").value(userRequestDto.name()))
+                .andExpect(jsonPath("$.surname").value(userRequestDto.surname()))
+                .andExpect(jsonPath("$.username").value(userRequestDto.username()));
+    }
 }

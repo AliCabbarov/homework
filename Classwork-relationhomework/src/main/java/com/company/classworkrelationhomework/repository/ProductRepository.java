@@ -36,4 +36,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             """)
     Optional<Product> findById(@Param("id")Long id);
 
+    boolean existsByName(String name);
 }

@@ -6,6 +6,7 @@ import com.company.classworkrelationhomework.model.dto.specification.SearchCrite
 import com.company.classworkrelationhomework.model.dto.specification.product.ProductSpecificationDto;
 import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.company.classworkrelationhomework.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponseDto> create(@RequestBody ProductRequestDto dto) {
+    public ResponseEntity<ProductResponseDto> create(@RequestBody @Valid ProductRequestDto dto) {
         return ResponseEntity.ok(productService.create(dto));
     }
 
