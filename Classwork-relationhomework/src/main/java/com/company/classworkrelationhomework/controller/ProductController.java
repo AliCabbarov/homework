@@ -1,11 +1,13 @@
 package com.company.classworkrelationhomework.controller;
 
 import com.company.classworkrelationhomework.model.dto.request.ProductRequestDto;
+import com.company.classworkrelationhomework.model.dto.response.CompanyResponse;
 import com.company.classworkrelationhomework.model.dto.response.ProductResponseDto;
 import com.company.classworkrelationhomework.model.dto.specification.SearchCriteria;
 import com.company.classworkrelationhomework.model.dto.specification.product.ProductSpecificationDto;
 import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.company.classworkrelationhomework.service.ProductService;
+import com.company.classworkrelationhomework.service.impl.function.ProductServiceFunction;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final ProductServiceFunction productServiceFunction;
 
     @PostMapping
     public ResponseEntity<ProductResponseDto> create(@RequestBody @Valid ProductRequestDto dto) {
@@ -35,7 +38,11 @@ public class ProductController {
 
     @GetMapping("/income")
     public ResponseEntity<List<IncomeCalculation>> incomeCalculate() {
-        return productService.calculateIncome();
+        return productServiceFunction.calculateIncome();
+    }
+    @GetMapping("/total-income")
+    public ResponseEntity<CompanyResponse> totalIncomeCalculate() {
+        return productServiceFunction.totalIncome();
     }
 
     @RequestMapping(value = "/specification", method = RequestMethod.GET)

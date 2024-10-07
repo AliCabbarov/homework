@@ -1,6 +1,7 @@
 package com.company.classworkrelationhomework.model.entity;
 
 import com.company.classworkrelationhomework.model.enums.OrderStatus;
+import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cache;
@@ -24,4 +25,6 @@ public class Order {
     private BigDecimal amount = BigDecimal.ZERO;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+    @ManyToOne
+    Company company;
 }

@@ -4,11 +4,13 @@ import com.company.classworkrelationhomework.model.dto.request.OrderRequestDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderProductResponseDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderReadResponseDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderResponseDto;
+import com.company.classworkrelationhomework.model.entity.Company;
 import com.company.classworkrelationhomework.model.entity.Order;
 import com.company.classworkrelationhomework.model.entity.OrderProduct;
 import com.company.classworkrelationhomework.model.entity.Product;
 import com.company.classworkrelationhomework.model.enums.OrderStatus;
 import com.company.classworkrelationhomework.projection.OrderProjection;
+import com.company.classworkrelationhomework.repository.CompanyRepository;
 import com.company.classworkrelationhomework.repository.OrderProductRepository;
 import com.company.classworkrelationhomework.repository.OrderRepository;
 import com.company.classworkrelationhomework.service.OrderService;
@@ -29,12 +31,15 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderProductRepository orderProductRepository;
     private final ProductService productService;
+    private final CompanyRepository companyRepository;
 
 
     @Override
     @Transactional
     public ResponseEntity<OrderResponseDto> create(List<OrderRequestDto> dto) {
         Order order = new Order();
+        Company company = companyRepository.findByName("jabbaroff");
+        order.setCompany(company);
         order.setOrderStatus(OrderStatus.ORDERED);
         List<OrderProduct> orderProducts = new ArrayList<>();
 
@@ -62,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
                             orderProduct.getProduct().getPrice(),
                             orderProduct.getProduct().getName()));
         }
+
+        companyRepository.callTotalAmountProcedure(company.getId(), order.getAmount());
 
         return ResponseEntity.ok(orderResponseDto);
     }

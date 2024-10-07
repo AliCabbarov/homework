@@ -34,6 +34,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             """, nativeQuery = true)
     List<IncomeCalculation> calculateIncome();
 
-    @CachePut(value = "orderCache", key = "#entity.id")
+    @Query(nativeQuery = true,value = "select * from calculate_and_get_income()")
+    List<IncomeCalculation> calculateIncomeFunction();
+
     Order save(Order entity);
 }

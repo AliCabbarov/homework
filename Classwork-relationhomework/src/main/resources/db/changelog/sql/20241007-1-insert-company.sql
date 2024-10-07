@@ -1,0 +1,1 @@
+insert into company(name,total_amount) values ('jabbaroff',0.0);

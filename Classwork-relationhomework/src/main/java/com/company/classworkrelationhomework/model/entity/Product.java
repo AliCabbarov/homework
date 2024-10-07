@@ -1,8 +1,10 @@
 package com.company.classworkrelationhomework.model.entity;
 
+import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
 public class Product  implements Serializable{
     private static final Long serialVersionUID = 1231588946L;
     @Id

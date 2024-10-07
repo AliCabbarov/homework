@@ -9,3 +9,11 @@ logging:
     web: debug
 
 
+#decorator:
+#  datasource:
+#    p6spy:
+#      enable-logging: true
+#      custom-appender-class: com.company.classworkrelationhomework.util.CustomSQLFormat
+#      logging: custom
+
+

@@ -2,15 +2,18 @@ package com.company.classworkrelationhomework.service.impl;
 
 import com.company.classworkrelationhomework.mapper.ProductMapper;
 import com.company.classworkrelationhomework.model.dto.request.ProductRequestDto;
+import com.company.classworkrelationhomework.model.dto.response.CompanyResponse;
 import com.company.classworkrelationhomework.model.dto.response.ProductResponseDto;
 import com.company.classworkrelationhomework.model.dto.specification.SearchCriteria;
 import com.company.classworkrelationhomework.model.dto.specification.product.ProductSpecificationDto;
 import com.company.classworkrelationhomework.model.entity.Category;
+import com.company.classworkrelationhomework.model.entity.Company;
 import com.company.classworkrelationhomework.model.entity.Product;
 import com.company.classworkrelationhomework.model.enums.ProductSort;
 import com.company.classworkrelationhomework.model.handler.ApplicationException;
 import com.company.classworkrelationhomework.model.handler.NotFoundException;
 import com.company.classworkrelationhomework.projection.IncomeCalculation;
+import com.company.classworkrelationhomework.repository.CompanyRepository;
 import com.company.classworkrelationhomework.repository.OrderRepository;
 import com.company.classworkrelationhomework.repository.ProductRepository;
 import com.company.classworkrelationhomework.service.CategoryService;
@@ -22,25 +25,30 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.company.classworkrelationhomework.model.enums.ErrorCode.ALREADY_EXIST;
+import static com.company.classworkrelationhomework.model.enums.ErrorCode.NOT_FOUND;
+
 
 @RequiredArgsConstructor
 @Service
+@Primary
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository productRepository;
-    private final OrderRepository orderRepository;
-    private final ProductMapper productMapper;
-    private final CategoryService categoryService;
-    private final ProductSpecification productSpecification;
-    private final RootSpecification<Product> rootSpecification;
+    protected final ProductRepository productRepository;
+    protected final OrderRepository orderRepository;
+    protected final ProductMapper productMapper;
+    protected final CategoryService categoryService;
+    protected final ProductSpecification productSpecification;
+    protected final RootSpecification<Product> rootSpecification;
+    private final CompanyRepository companyRepository;
 
     @Override
     @CachePut(cacheNames = "products", key = "#result.id")
@@ -55,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
     private void alreadyExistExceptionByName(@NonNull String name){
         boolean existsByName = productRepository.existsByName(name);
         if (existsByName){
-            throw new ApplicationException("product already exist exception with given name: " + name);
+            throw new ApplicationException(ALREADY_EXIST,name);
         }
     }
 
@@ -75,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getById(long id) {
         return productRepository.findById(id).orElseThrow(() ->
-                new NotFoundException("product not found", id));
+                new NotFoundException(NOT_FOUND,String.valueOf(id)));
     }
 
     public ResponseEntity<List<ProductResponseDto>> productBySpecification(ProductSpecificationDto dto) {
@@ -108,6 +116,13 @@ public class ProductServiceImpl implements ProductService {
         Product product = getById(id);
         productRepository.delete(product);
         return productMapper.map(product);
+    }
+
+    @Override
+    public ResponseEntity<CompanyResponse> totalIncome() {
+        Company company = companyRepository.findByName("jabbaroff");
+        CompanyResponse companyResponse = new CompanyResponse(company.getId(), company.getName(),company.getTotalAmount());
+        return ResponseEntity.ok(companyResponse);
     }
 
     @Override

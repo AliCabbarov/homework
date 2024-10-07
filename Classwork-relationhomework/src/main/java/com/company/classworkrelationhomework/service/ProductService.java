@@ -1,6 +1,7 @@
 package com.company.classworkrelationhomework.service;
 
 import com.company.classworkrelationhomework.model.dto.request.ProductRequestDto;
+import com.company.classworkrelationhomework.model.dto.response.CompanyResponse;
 import com.company.classworkrelationhomework.model.dto.response.ProductResponseDto;
 import com.company.classworkrelationhomework.model.dto.specification.SearchCriteria;
 import com.company.classworkrelationhomework.model.dto.specification.product.ProductSpecificationDto;
@@ -21,4 +22,6 @@ public interface ProductService {
     ResponseEntity<List<ProductResponseDto>> searchByCriteria(List<SearchCriteria> dto);
     ProductResponseDto findById(Long id);
     ProductResponseDto delete(Long id);
+
+    ResponseEntity<CompanyResponse> totalIncome();
 }
