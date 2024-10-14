@@ -11,7 +11,6 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    @Mapping(target = "id",ignore = true)
     UserResponseDto map(User cart);
     @Mapping(target = "id",ignore = true)
     User map(UserRequestDto cart);

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ErrorCode {
     NOT_FOUND("exception.not.found","exception.not.found.detail", HttpStatus.NOT_FOUND),
+    INVALID_CREDENTIALS("exception.invalid-credentials","exception.invalid-credentials.detail", HttpStatus.BAD_REQUEST),
     ALREADY_EXIST("exception.already.exist","exception.already.exist.detail", HttpStatus.BAD_REQUEST);
     private final String code;
     private final String detailCode;

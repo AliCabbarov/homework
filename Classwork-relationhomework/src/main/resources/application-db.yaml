@@ -9,13 +9,13 @@ spring:
       ddl-auto: ${DDL_AUTO:update}
     show-sql: true
     open-in-view: off
-    properties:
-      hibernate:
-        cache:
-          use_query_cache: true
-          use_second_level_cache: true
-          region:
-            factory_class: org.redisson.hibernate.RedissonRegionFactory
+#    properties:
+#      hibernate:
+#        cache:
+#          use_query_cache: true
+#          use_second_level_cache: true
+#          region:
+#            factory_class: org.redisson.hibernate.RedissonRegionFactory
 
 
 
