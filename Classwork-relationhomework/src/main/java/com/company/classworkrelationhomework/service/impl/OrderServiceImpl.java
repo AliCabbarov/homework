@@ -1,5 +1,6 @@
 package com.company.classworkrelationhomework.service.impl;
 
+import com.company.classworkrelationhomework.config.JwtCredentials;
 import com.company.classworkrelationhomework.model.dto.request.OrderRequestDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderProductResponseDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderReadResponseDto;
@@ -16,9 +17,8 @@ import com.company.classworkrelationhomework.repository.OrderRepository;
 import com.company.classworkrelationhomework.service.OrderService;
 import com.company.classworkrelationhomework.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,6 +70,7 @@ public class OrderServiceImpl implements OrderService {
 
         companyRepository.callTotalAmountProcedure(company.getId(), order.getAmount());
 
+        orderRepository.logWhenCreateOrder(getUserCredentials().getName(), getUserCredentials().getSurname(), order.getAmount());
         return ResponseEntity.ok(orderResponseDto);
     }
 
@@ -120,6 +121,10 @@ public class OrderServiceImpl implements OrderService {
                 orderProjection.getOrderProductPrice(),
                 orderProjection.getProductName());
 
+    }
+
+    private JwtCredentials getUserCredentials(){
+        return  (JwtCredentials) SecurityContextHolder.getContext().getAuthentication().getDetails();
     }
 
 }

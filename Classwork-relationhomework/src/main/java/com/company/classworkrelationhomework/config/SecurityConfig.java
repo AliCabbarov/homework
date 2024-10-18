@@ -21,7 +21,6 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final AuthenticationProvider authenticationProvider;
     //    private final OAuth2ApplicationConfigurer oAuth2ApplicationConfigurer;
     private final List<AuthService> authServices;
 
@@ -44,8 +43,11 @@ public class SecurityConfig {
                                 EndPoints.SWAGGER_UI_HTML).permitAll()
                         .requestMatchers("/admins/**").hasAnyRole(Roles.ADMIN.name())
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/files/**").permitAll()
+                        .requestMatchers("/test/**").permitAll()
+                        .requestMatchers("/notification/**").permitAll()
                         .requestMatchers("/users/**").hasAnyAuthority(Roles.ADMIN.name(), Roles.USER.name())
-                        .anyRequest().denyAll())
+                        .anyRequest().authenticated())
 //                .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer.successHandler(oAuth2ApplicationConfigurer.successHandler()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .with(new AuthFilterConfigurerAdapter(authServices), configurer -> configurer.configure(security));

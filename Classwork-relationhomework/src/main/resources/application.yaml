@@ -3,6 +3,7 @@ spring:
     include:
       - db
       - common
+      - twilio
     active: ${ACTIVE-PROFILE:dev}
 logging:
   level:

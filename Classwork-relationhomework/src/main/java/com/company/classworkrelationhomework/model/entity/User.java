@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @DynamicUpdate
-public class User implements UserDetails {
+public class User  {
     @Id
     @GenericGenerator(name = "user_id_generator")
     @GeneratedValue(strategy = GenerationType.UUID, generator = "user_id_generator")
@@ -34,33 +34,4 @@ public class User implements UserDetails {
     private boolean enabled;
     @ManyToOne(fetch = FetchType.EAGER)
     Role role;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        String name = role.getRole().name();
-//        List<Permission> permissions = role.getPermission();
-//        List<Permission> nonReferenceList = new ArrayList<>(permissions);
-//        nonReferenceList.add(new Permission(name));
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return enabled;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return enabled;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return enabled;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
 }

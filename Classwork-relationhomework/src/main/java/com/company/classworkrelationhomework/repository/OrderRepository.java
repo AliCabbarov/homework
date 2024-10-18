@@ -5,8 +5,10 @@ import com.company.classworkrelationhomework.projection.IncomeCalculation;
 import com.company.classworkrelationhomework.projection.OrderProjection;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -24,6 +26,23 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             join op.product p
             order by o.id""")
     List<OrderProjection> findProjection();
+
+    @Query(value = """
+do $$
+    declare
+        first_name varchar(50) = 'John';
+        last_name  varchar(50) = 'Doe';
+        payment    numeric(11,2) = 20.5;
+    begin
+        raise notice '% % has been paid % USD',
+            first_name,
+            last_name,
+            payment;
+    end $$
+""", nativeQuery = true)
+    @Modifying
+    void logWhenCreateOrder(String firstName, String lastName, BigDecimal payment);
+
 
     @Query(value = """
             select  sum(op.quantity * op.price) as total_income,

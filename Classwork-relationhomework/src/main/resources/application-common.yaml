@@ -1,38 +1,46 @@
-#spring:
-#  config:
-#    activate:
-#      on-profile: test
-#
-#
-#  security:
-#    jwt-secret-key: bXkgc2VjcmV0IGtleSBmb3IgdGhlIHNwcmluZyBzZWN1cml0eSBwcm9qZWN0IG15IHNlY3JldCBrZXkgZm9yIHRoZSBzcHJpbmcgc2VjdXJpdHkgcHJvamVjdA==
-#
-#logging:
-#  level:
-#    web: fatal
-#
-#---
-#spring:
-#  config:
-#    activate:
-#      on-profile: prod
-#
-#  security:
-#    jwt-secret-key: bXkgc2VjcmV0IGtleSBmb3IgdGhlIHNwcmluZyBzZWN1cml0eSBwcm9qZWN0IG15IHNlY3JldCBrZXkgZm9yIHRoZSBzcHJpbmcgc2VjdXJpdHkgcHJvamVjdA==
-#
-#logging:
-#  level:
-#    web: fatal
-
----
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: test
+
 
   security:
     jwt-secret-key: eW91ci0yNTYtYml0LXNlY3JldHlvdXItMjU2LWJpdC1zZWNyZXR5b3VyLTI1Ni1iaXQtc2VjcmV0eW91ci0yNTYtYml0LXNlY3JldHlvdXItMjU2LWJpdC1zZWNyZXR5b3VyLTI1Ni1iaXQtc2VjcmV0
 
 logging:
   level:
+    web: fatal
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  security:
+    jwt-secret-key: eW91ci0yNTYtYml0LXNlY3JldHlvdXItMjU2LWJpdC1zZWNyZXR5b3VyLTI1Ni1iaXQtc2VjcmV0eW91ci0yNTYtYml0LXNlY3JldHlvdXItMjU2LWJpdC1zZWNyZXR5b3VyLTI1Ni1iaXQtc2VjcmV0
+
+logging:
+  level:
+    web: fatal
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  security:
+    jwt-secret-key: eW91ci0yNTYtYml0LXNlY3JldHlvdXItMjU2LWJpdC1zZWNyZXR5b3VyLTI1Ni1iaXQtc2VjcmV0eW91ci0yNTYtYml0LXNlY3JldHlvdXItMjU2LWJpdC1zZWNyZXR5b3VyLTI1Ni1iaXQtc2VjcmV0
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+
+
+file:
+  upload:
+    url: src/main/resources/files/
+
+logging:
+  level:
     web: warn
+

@@ -21,4 +21,6 @@ public class JwtCredentials {
     String status;
     String sub;
     String type;
+    String name;
+    String surname;
 }

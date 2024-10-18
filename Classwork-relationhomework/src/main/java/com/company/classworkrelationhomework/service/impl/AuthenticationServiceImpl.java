@@ -6,6 +6,7 @@ import com.company.classworkrelationhomework.model.dto.auth.request.SignUpDto;
 import com.company.classworkrelationhomework.model.dto.auth.response.LoginResponseDto;
 import com.company.classworkrelationhomework.model.entity.User;
 import com.company.classworkrelationhomework.model.enums.ErrorCode;
+import com.company.classworkrelationhomework.model.enums.Roles;
 import com.company.classworkrelationhomework.model.exception.BadRequestException;
 import com.company.classworkrelationhomework.repository.UserRepository;
 import com.company.classworkrelationhomework.service.AuthenticationService;
@@ -14,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,10 +37,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new BadRequestException(ErrorCode.INVALID_CREDENTIALS, dto.username(), dto.password());
         }
 
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("authority", List.of(user.getRole().getRole().name()));
+        claims.put("id", user.getId());
+        claims.put("status", user.isEnabled());
+        claims.put("name", user.getName());
+        claims.put("surname", user.getSurname());
+
         String token = baseJwtService.generateToken(dto.username(),
-                Map.of("authority", List.of(String.format("%s",user.getRole().getRole().name())),
-                        "id", user.getId(),
-                        "status",user.isEnabled()));
+                claims);
         return new LoginResponseDto(token, null);
     }
 

@@ -1,5 +1,6 @@
 package com.company.classworkrelationhomework.controller;
 
+import com.company.classworkrelationhomework.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.core.io.Resource;
@@ -8,9 +9,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -19,22 +19,22 @@ import java.nio.file.Path;
 @RequestMapping("/files")
 @RequiredArgsConstructor
 public class FileController {
-    @GetMapping
+    private final FileService fileService;
+    @PostMapping("/download")
     @SneakyThrows
-    public ResponseEntity<Resource> download() {
-        try {
-
-            Resource resource = new UrlResource(Path.of("output-fe59d6e8-4492-422b-af37-2a9c0fc73a0f.xml").toUri());
-            return new ResponseEntity<>(resource, buildHeaders("output-fe59d6e8-4492-422b-af37-2a9c0fc73a0f.xml"), HttpStatus.OK);
-        } catch (RuntimeException e) {
-            throw new FileNotFoundException();
-        }
+    public ResponseEntity<String> download(@RequestParam("file") MultipartFile file) {
+        return ResponseEntity.ok(fileService.download(file));
+    }
+    @GetMapping("/upload/{name}")
+    @SneakyThrows
+    public ResponseEntity<Resource> upload(@PathVariable String name) {
+        return fileService.upload(name);
+    }
+    @GetMapping("/read/{name}")
+    @SneakyThrows
+    public ResponseEntity<String> readAsString(@PathVariable String name) {
+        return ResponseEntity.ok(fileService.readFileAsString(name));
     }
 
-    public HttpHeaders buildHeaders(String fileName) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        httpHeaders.setContentDispositionFormData("attachment", fileName);
-        return httpHeaders;
-    }
+
 }
