@@ -17,6 +17,10 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto dto){
         return ResponseEntity.ok(authenticationService.login(dto));
     }
+    @PostMapping("/refresh")
+    public ResponseEntity<LoginResponseDto> refresh(@RequestParam("token") String refreshToken){
+        return ResponseEntity.ok(authenticationService.refresh(refreshToken));
+    }
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signUp(@RequestBody SignUpDto dto){
         return authenticationService.signUp(dto);

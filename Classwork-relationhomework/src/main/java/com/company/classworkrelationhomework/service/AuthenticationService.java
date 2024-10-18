@@ -9,4 +9,6 @@ public interface AuthenticationService {
     LoginResponseDto login(LoginRequestDto dto);
 
     ResponseEntity<Void> signUp(SignUpDto dto);
+
+    LoginResponseDto refresh(String refreshToken);
 }

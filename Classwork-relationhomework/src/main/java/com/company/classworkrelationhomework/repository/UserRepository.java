@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //    @EntityGraph(attributePaths = {"User.role","Role.permissions"})
     @Query("select u from _user u join fetch u.role r left join fetch r.permission  where u.email =:email")
     Optional<User> findByEmail(String email);
+
+    Optional<User> findByRefreshTokenAndEnabled(String refreshToken, boolean enabled);
 }
