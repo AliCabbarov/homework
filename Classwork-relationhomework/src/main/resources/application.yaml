@@ -4,6 +4,7 @@ spring:
       - db
       - common
       - twilio
+      - security
     active: ${ACTIVE-PROFILE:dev}
 logging:
   level:

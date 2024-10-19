@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class AuthRequestFilter extends OncePerRequestFilter {
 
     private final List<AuthService> authServices;
@@ -27,6 +29,9 @@ public class AuthRequestFilter extends OncePerRequestFilter {
         Optional<Authentication> authOptional = Optional.empty();
         for (AuthService authService : authServices) {
             authOptional = authOptional.or(() -> authService.getAuthentication(httpServletRequest));
+            if (authOptional.isPresent()){
+                break;
+            }
         }
         authOptional.ifPresent(auth -> SecurityContextHolder.getContext().setAuthentication(auth));
         filterChain.doFilter(httpServletRequest, httpServletResponse);

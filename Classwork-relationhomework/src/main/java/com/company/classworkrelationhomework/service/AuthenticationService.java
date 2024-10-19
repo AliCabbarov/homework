@@ -11,4 +11,6 @@ public interface AuthenticationService {
     ResponseEntity<Void> signUp(SignUpDto dto);
 
     LoginResponseDto refresh(String refreshToken);
+
+    void accessForApiKey(Long id);
 }

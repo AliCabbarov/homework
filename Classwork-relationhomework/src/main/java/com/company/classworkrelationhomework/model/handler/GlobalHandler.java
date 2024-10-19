@@ -56,9 +56,9 @@ public class GlobalHandler extends DefaultErrorAttributes {
         ErrorResponse response = ErrorResponse.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .code(HttpStatus.BAD_REQUEST.value())
-                .message(ex.getMessage())
+                .message(messageUtil.getMessage(ex.getErrorCode().getCode()))
                 .path(((ServletRequestAttributes) webRequest).getRequest().getServletPath())
-                .detail(ex.getLocalizedMessage())
+                .detail(messageUtil.getMessage(ex.getErrorCode().getCode()))
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }

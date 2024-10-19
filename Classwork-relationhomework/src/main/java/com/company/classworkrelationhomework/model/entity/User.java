@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +34,9 @@ public class User  {
     private String password;
     private boolean enabled;
     private String refreshToken;
+    private String apiKey;
+    private boolean isHasApiKey;
+    private LocalDateTime refreshTokenExpiredDate;
     @ManyToOne(fetch = FetchType.EAGER)
     Role role;
 }

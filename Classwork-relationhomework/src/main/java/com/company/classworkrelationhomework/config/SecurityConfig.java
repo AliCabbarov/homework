@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.List;
 
@@ -21,8 +22,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    //    private final OAuth2ApplicationConfigurer oAuth2ApplicationConfigurer;
-    private final List<AuthService> authServices;
+    private final AuthRequestFilter authRequestFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
@@ -48,9 +48,8 @@ public class SecurityConfig {
                         .requestMatchers("/notification/**").permitAll()
                         .requestMatchers("/users/**").hasAnyAuthority(Roles.ADMIN.name(), Roles.USER.name())
                         .anyRequest().authenticated())
-//                .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer.successHandler(oAuth2ApplicationConfigurer.successHandler()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .with(new AuthFilterConfigurerAdapter(authServices), configurer -> configurer.configure(security));
+                .addFilterBefore(authRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 
         return security.build();
