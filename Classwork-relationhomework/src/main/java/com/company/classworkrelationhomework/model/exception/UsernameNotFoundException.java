@@ -1,18 +1,15 @@
 package com.company.classworkrelationhomework.model.exception;
 
 import com.company.classworkrelationhomework.model.dto.exception.ExceptionResponse;
+import com.company.classworkrelationhomework.model.enums.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class UsernameNotFoundException extends org.springframework.security.core.userdetails.UsernameNotFoundException {
-    private final ExceptionResponse response;
+public class UsernameNotFoundException extends ApplicationException {
 
-    public UsernameNotFoundException(ExceptionResponse response) {
-        super(response.getMessage());
-        this.response = response;
+
+    public UsernameNotFoundException(ErrorCode errorCode, String... args) {
+        super(errorCode, args);
     }
 
-    public  static UsernameNotFoundException of(ExceptionResponse exceptionResponse) {
-        return new UsernameNotFoundException(exceptionResponse);
-    }
 }

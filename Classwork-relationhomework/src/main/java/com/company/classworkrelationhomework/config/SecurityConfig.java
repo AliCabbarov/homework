@@ -41,7 +41,7 @@ public class SecurityConfig {
                                 EndPoints.SWAGGER_UI,
                                 EndPoints.SWAGGER_WEBJARS,
                                 EndPoints.SWAGGER_UI_HTML).permitAll()
-                        .requestMatchers("/admins/**").hasAnyRole(Roles.ADMIN.name())
+                        .requestMatchers("/admins/**").hasAnyAuthority(Roles.ADMIN.name())
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/files/**").permitAll()
                         .requestMatchers("/test/**").permitAll()
