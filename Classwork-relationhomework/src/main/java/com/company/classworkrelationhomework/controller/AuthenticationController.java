@@ -26,9 +26,10 @@ public class AuthenticationController {
         return authenticationService.signUp(dto);
     }
 
-    @PutMapping
+    @PutMapping("/access")
     public ResponseEntity<Void> accessForApiKey(@RequestParam("id") Long id){
         authenticationService.accessForApiKey(id);
         return ResponseEntity.ok().build();
     }
+
 }

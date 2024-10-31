@@ -52,7 +52,14 @@ do $$
             group by  _order.id
             """, nativeQuery = true)
     List<IncomeCalculation> calculateIncome();
-
+    @Query(value = """
+            select  sum(op.quantity * op.price) as total_income
+            from _order
+                     left join order_product op on _order.id = op.order_id
+            where _order.id = :id
+            group by  _order.id
+            """, nativeQuery = true)
+    BigDecimal calculateIncomeByOrderId(Long id);
     @Query(nativeQuery = true,value = "select * from calculate_and_get_income()")
     List<IncomeCalculation> calculateIncomeFunction();
 

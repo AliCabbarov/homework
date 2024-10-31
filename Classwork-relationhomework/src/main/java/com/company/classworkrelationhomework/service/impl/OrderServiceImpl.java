@@ -1,6 +1,7 @@
 package com.company.classworkrelationhomework.service.impl;
 
 import com.company.classworkrelationhomework.config.JwtCredentials;
+import com.company.classworkrelationhomework.kafka.producer.OrderProducer;
 import com.company.classworkrelationhomework.model.dto.request.OrderRequestDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderProductResponseDto;
 import com.company.classworkrelationhomework.model.dto.response.OrderReadResponseDto;
@@ -32,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderProductRepository orderProductRepository;
     private final ProductService productService;
     private final CompanyRepository companyRepository;
+    private final OrderProducer orderProducer;
 
 
     @Override
@@ -70,7 +72,8 @@ public class OrderServiceImpl implements OrderService {
 
         companyRepository.callTotalAmountProcedure(company.getId(), order.getAmount());
 
-        orderRepository.logWhenCreateOrder(getUserCredentials().getName(), getUserCredentials().getSurname(), order.getAmount());
+//        orderRepository.logWhenCreateOrder(getUserCredentials().getName(), getUserCredentials().getSurname(), order.getAmount());
+        orderProducer.send(order);
         return ResponseEntity.ok(orderResponseDto);
     }
 

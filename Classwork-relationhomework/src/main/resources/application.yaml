@@ -5,6 +5,7 @@ spring:
       - common
       - twilio
       - security
+      - kafka
     active: ${ACTIVE-PROFILE:dev}
 logging:
   level:

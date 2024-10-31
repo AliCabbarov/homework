@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@ToString
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
