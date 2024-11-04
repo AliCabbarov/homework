@@ -7,4 +7,6 @@ public interface UserService {
     UserResponseDto getById(Long id);
     UserResponseDto insert(UserRequestDto userRequestDto);
     UserResponseDto update(UserRequestDto userRequestDto,Long id);
+
+    void delete(Long id);
 }

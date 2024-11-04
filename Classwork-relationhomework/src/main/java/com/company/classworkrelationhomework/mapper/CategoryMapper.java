@@ -16,5 +16,6 @@ public interface CategoryMapper {
     CategoryResponseDto map(Category category);
 
     List<CategoryResponseDto> map(List<Category> categories);
+    List<Category> mapToEntity(List<CategoryRequestDto> categoryRequestDtos);
 
 }

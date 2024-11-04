@@ -38,4 +38,9 @@ public class UserController {
     public ResponseEntity<UserResponseDto> create(@RequestBody UserRequestDto dto, @PathVariable Long id) {
         return ResponseEntity.ok(userService.update(dto, id));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        userService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
