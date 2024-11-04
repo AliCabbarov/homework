@@ -20,5 +20,6 @@ public interface CategoryMapper {
     //test1
     //test2
     //test12
+    //test22
 
 }
